@@ -1,0 +1,196 @@
+class program {
+	void turn(n){
+    	iterate(n){
+        	turnleft();
+        }
+    }
+    void back(n){
+    	turn(2);
+        move();
+        turn(n);
+    }
+	void busqueda(){
+        if(nextToABeeper){
+            return();
+        }
+        putbeeper();
+        if(frontIsClear){
+            move();
+            busqueda();
+            back(2);
+        }
+        if(leftIsClear){
+            turn(1);
+            move();
+            busqueda();
+            back(1);
+        }
+        if(rightIsClear){
+            turn(3);
+            move();
+            busqueda();
+            back(3);
+        }
+    }
+    void borrarBusqueda(){
+    	if(notNextToABeeper){
+        	return();
+        }else{
+        	pickbeeper();
+            if(nextToABeeper){
+                putbeeper();
+            }
+        }
+    	if(frontIsClear){
+        	move();
+            borrarBusqueda();
+            back(2);
+        }
+        if(leftIsClear){
+            turn(1);
+        	move();
+            borrarBusqueda();
+            back(1);
+        }
+        if(rightIsClear){
+        	turn(3);
+            move();
+            borrarBusqueda();
+            back(3);
+        }
+        isCorner();
+    }
+    
+    void isCorner(){
+    	if(nextToABeeper){
+        	return();
+        }
+        if((leftIsBlocked&&frontIsBlocked)
+        ||(rightIsBlocked&&frontIsBlocked)){
+            putbeeper();
+            putbeeper();
+        }
+        check1();
+        turn(2);
+        check1();
+        turn(2);
+    }
+    
+    void check1(){
+        if(frontIsBlocked){
+            if(leftIsClear){
+                // Avanza izquierda
+                turn(1); 
+                move();
+                if(rightIsClear){
+                    // Avanza derecha
+                    turn(3);
+                    move();
+                    if(rightIsBlocked){
+                        // ENCONTRÓ UNA ESQUINA A LA IZQUIERDA
+                        turn(2);
+                        move();
+                        if(notNextToABeeper){
+                          putbeeper();
+                          putbeeper();
+                        }
+                    }else{
+                    	turn(2);
+                        move();
+                    }
+                    turn(1);
+                }else{
+                    turn(2);
+                }
+                move();
+                turn(1);
+            }
+            if(rightIsClear){
+                // Avanza derecha
+                turn(3); 
+                move();
+                if(leftIsClear){
+                    // Avanza izquierda
+                    turn(1);
+                    move();
+                    if(leftIsBlocked){
+                        // ENCONTRÓ UNA ESQUINA A LA DERECHA
+                        turn(2);
+                        move();
+                        if(notNextToABeeper){
+                          putbeeper();
+                          putbeeper();
+                        }
+                    }else{
+                    	turn(2);
+                        move();
+                    }
+                    turn(3);
+                }else{
+                    turn(2);
+                }
+                move();
+                turn(3);
+            }
+        }else{
+            if(leftIsBlocked){
+                // Avanza
+                move();
+                if(leftIsClear){
+                    // Avanza izquierda
+                    turn(1);
+                    move();
+                    if(leftIsBlocked){
+                        // ENCONTRÓ UNA ESQUINA ENFRENTE
+                        turn(2);
+                        move();
+                        if(notNextToABeeper){
+                          putbeeper();
+                          putbeeper();
+                        }
+                    }else{
+                        turn(2);
+                        move();
+                    }
+                    turn(3);
+                }else{
+                    turn(2);
+                }
+                move();
+                turn(2);
+            }else if(rightIsBlocked){
+                // Avanza
+                move();
+                if(rightIsClear){
+                    // Avanza derecha
+                    turn(3);
+                    move();
+                    if(rightIsBlocked){
+                        // ENCONTRÓ UNA ESQUINA ENFRENTE
+                        turn(2);
+                        move();
+                        if(notNextToABeeper){
+                          putbeeper();
+                          putbeeper();
+                        }
+                    }else{
+                        turn(2);
+                        move();
+                    }
+                    turn(1);
+                }else{
+                    turn(2);
+                }
+                move();
+                turn(2);
+            }
+        }
+    }
+    
+    program () {
+        busqueda();
+        borrarBusqueda();
+        //isCorner();
+        turnoff();
+    }
+}

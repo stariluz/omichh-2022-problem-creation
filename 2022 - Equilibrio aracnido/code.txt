@@ -1,0 +1,277 @@
+class program {
+
+	void turn(n){
+    	iterate(n){
+        	turnleft();
+        }
+    }
+    
+    
+    
+    void restoreBeepers(n){
+        turn(2); //Girar al norte
+        move();
+        turn(3); //Girar al este
+        iterate(n){
+        	putbeeper();
+        }
+    }
+    void returnClonedBeepers(n){
+    	if(nextToABeeper){
+            pickbeeper();
+            returnClonedBeepers(succ(n));
+        }else{
+            restoreBeepers(n);
+        }
+    }
+    void saveBeepers(n){
+    	while(notFacingSouth){
+        	turn(1);
+        }
+        move();
+        if(notNextToABeeper){
+          iterate(n){
+              putbeeper();
+
+          }
+        }
+        turn(2); //Girar al norte
+        move();
+        turn(3); //Girar al este
+    }
+    void cloneBeepers(n){
+    	if(nextToABeeper){
+            pickbeeper();
+            cloneBeepers(succ(n));
+        }else{
+            saveBeepers(n);
+            iterate(n){
+            	putbeeper();
+            }
+        }
+    }
+    
+    
+    void returnLeftSide(n){
+    	while(notFacingWest){
+        	turn(1);
+        }
+        move();
+        while(nextToABeeper){
+        	move();
+        }
+        move();
+        move();
+        
+        while(nextToABeeper){
+        	move();
+        }
+        turn(2);
+        move();
+        isGreater(0);
+        iterate(n){
+        	pickbeeper();
+        }
+    }
+    
+    void returnRightSide(n){
+    	while(notFacingWest){
+        	turn(1);
+        }
+        move();
+        while(nextToABeeper){
+        	move();
+        }
+        
+        turn(2);
+        move();
+        isGreater(0);
+        iterate(n){
+        	pickbeeper();
+        }
+    }
+   
+   
+   
+    
+    void countBeepers3(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            countBeepers3(succ(n));
+        }
+        else{
+            while(notFacingSouth){
+                turn(1);
+            }
+            move();
+            returnClonedBeepers(0);
+            while(notFacingEast){
+                turn(1);
+            }
+            move();
+            getUnbalance(n);
+        }
+    }
+    void getUnbalance(n){
+    	if(nextToABeeper){
+          cloneBeepers(0); // Respaldo de los beepers
+          countBeepers3(n);
+        }else{
+        	returnRightSide(n);
+        }
+    }
+    void countBeepers2(n){
+    	if(iszero(n)&&notNextToABeeper){
+            while(notFacingSouth){
+                turn(1);
+            }
+            move();
+            returnClonedBeepers(0);
+        	turnoff();
+        }else if(iszero(n)){
+        	getUnbalance(0);
+        }else if(nextToABeeper){
+        	pickbeeper();
+            countBeepers2(pred(n));
+        }else{
+            while(notFacingSouth){
+                turn(1);
+            }
+            move();
+            returnClonedBeepers(0);
+            while(notFacingEast){
+                turn(1);
+            }
+            move();
+            substractBeepers(n);
+        }
+    }
+    void substractBeepers(n){
+    	if(nextToABeeper){
+          cloneBeepers(0); // Respaldo de los beepers
+          countBeepers2(n);
+        }else{
+        	returnLeftSide(n);
+        }
+    }
+    void countBeepers(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            countBeepers(succ(n));
+        }
+        else{
+            while(notFacingSouth){
+                turn(1);
+            }
+            move();
+            returnClonedBeepers(0);
+            while(notFacingEast){
+                turn(1);
+            }
+            move();
+            addBeepers(n);
+        }
+    }
+    void addBeepers(n){
+    	if(nextToABeeper){
+          cloneBeepers(0); // Respaldo de los beepers
+          countBeepers(n);
+        }else{
+        	move();
+            move();
+            substractBeepers(n);
+        }
+    }
+    
+    
+    
+    void checkNext(n){
+    	while(notFacingSouth){
+        	turn(1);
+        }
+        move();
+        returnClonedBeepers(0);
+        while(notFacingEast){
+            turn(1);
+        }
+        move();
+        isGreater(n);
+    }
+    void setGreater(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            setGreater(succ(n));
+        }else{
+            checkNext(n);
+        }
+    }
+    void isGreater(n){
+    	if(nextToABeeper){
+            cloneBeepers(0); // Respaldo de los beepers
+            iterate(n){
+                if(nextToABeeper&&notFacingNorth){
+                    pickbeeper();
+                }else{
+                    while(notFacingEast){ // Mira al norte
+                        turn(1);
+                    }
+                }
+            }
+
+            if(nextToABeeper){
+                setGreater(n);
+            }else{
+                while(nextToABeeper){
+                    pickbeeper();
+                }
+                checkNext(n);
+            }
+        }else{
+            backWithGreater(n);
+        }
+    }
+    
+    
+    
+    
+    void backWithGreater(n){
+    	turn(2);
+        move();
+        while(nextToABeeper){
+        	cloneBeepers(0);
+        	iterate(n){
+            	if(nextToABeeper&&notFacingNorth){
+                	pickbeeper();
+                }else{
+                	while(notFacingNorth){
+                    	turn(1);
+                    }
+                }
+            }
+            if(notNextToABeeper&&notFacingNorth){
+                while(notFacingSouth){
+                    turn(1);
+                }
+                move();
+                returnClonedBeepers(0);
+                return();
+            }else{
+                while(notFacingSouth){
+                    turn(1);
+                }
+                move();
+                returnClonedBeepers(0);
+                
+                while(notFacingWest){
+                    turn(1);
+                }
+                move();
+            }
+        }
+    }
+    
+    program () {
+        addBeepers(0);
+        turnoff();
+    }
+}
