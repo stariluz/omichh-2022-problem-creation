@@ -2,7 +2,7 @@
 	<condiciones instruccionesMaximasAEjecutar="10000000" longitudStack="65000"></condiciones>
 	<mundos>
 		<mundo nombre="mundo_0" ancho="100" alto="100">
-			<monton x="2" y="3" zumbadores="4"></monton>
+			<monton x="2" y="3" zumbadores="56"></monton>
 			<monton x="5" y="3" zumbadores="4"></monton>
 			<pared x1="1" y1="1" x2="2"></pared>
 			<pared x1="2" y1="1" x2="3"></pared>
