@@ -1,0 +1,51 @@
+class program {
+	void turn(n){
+    	iterate(n){
+        	turnleft();
+        }
+    }
+	void buscar(){
+    	if(nextToABeeper){
+        	return();
+        }
+        putbeeper();
+    	iterate(4){
+        	if(frontIsClear){
+            	move();
+                buscar();
+                turn(2);
+                move();
+                turn(2);
+            }
+            turnleft();
+        }
+    }
+    void borrarBuscar(){
+    	if(notNextToABeeper){
+        	return();
+        }
+        pickbeeper();
+        if(nextToABeeper){
+        	putbeeper();
+        }
+    	iterate(4){
+        	if(frontIsClear){
+            	move();
+                borrarBuscar();
+                turn(2);
+                move();
+                turn(2);
+            }
+            turnleft();
+        }
+        if(notNextToABeeper&&frontIsBlocked&&(leftIsBlocked||rightIsBlocked)){
+        	putbeeper();
+            putbeeper();
+        }
+    }
+    program () {
+        buscar();
+        borrarBuscar();
+        turnoff();
+    }
+}

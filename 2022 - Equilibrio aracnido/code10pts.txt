@@ -1,0 +1,62 @@
+class program {
+	void contarDiferencia(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            contarDiferencia(succ(n));
+        }else{
+        	iterate(n){
+            	putbeeper();
+            }
+        	iterate(n){
+            	pickbeeper();
+            }
+        }
+    }
+    void restar(n){
+    	if(iszero(n)){
+        	contarDiferencia(0);
+        }else if(nextToABeeper){
+        	pickbeeper();
+            restar(pred(n));
+        }else{
+            iterate(n){
+            	putbeeper();
+            }
+        	iterate(2){ turnleft(); }
+        	iterate(3){ move(); }
+            iterate(n){
+            	pickbeeper();
+            }
+        }
+    }
+    void obtenerDiferencia(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            obtenerDiferencia(pred(n));
+        }else{
+        	devolver1(n);
+        }
+    }
+    void devolver1(n){
+    	iterate(n){
+        	putbeeper();
+        }
+    }
+    void contar(n){
+    	if(nextToABeeper){
+        	pickbeeper();
+            contar(succ(n));
+        }else{
+        	iterate(n){
+            	putbeeper();
+            }
+        	iterate(3){ move(); }
+            restar(n);
+            obtenerDiferencia(n);
+        }
+    }
+    program () {
+        contar(0);
+        turnoff();
+    }
+}

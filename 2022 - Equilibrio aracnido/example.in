@@ -4,7 +4,7 @@
 		<mundo nombre="mundo_0" ancho="100" alto="100">
 			<monton x="4" y="7" zumbadores="2"></monton>
 			<monton x="5" y="7" zumbadores="3"></monton>
-			<monton x="6" y="7" zumbadores="5"></monton>
+			<monton x="6" y="7" zumbadores="7"></monton>
 			<monton x="7" y="7" zumbadores="2"></monton>
 			<monton x="10" y="7" zumbadores="3"></monton>
 			<monton x="11" y="7" zumbadores="4"></monton>
