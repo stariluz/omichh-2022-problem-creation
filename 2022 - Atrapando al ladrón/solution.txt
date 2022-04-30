@@ -1,45 +1,29 @@
 class program {
-	void func() {
-    	while(frontIsClear && !nextToABeeper)
-        {
-        	move();       
-        }
-        if(nextToABeeper)
-        {
-        	turnleft();
-            move();
-            func();
-            move();
-            func();
-            turnleft();
-            move();
-            while(!nextToABeeper)
-            {
-            	move();
-            }            
-        }
-        else
-        {
-        	putbeeper();
-            putbeeper();
-            putbeeper();
-            turnleft();
-            turnleft();
-            move();
-            while(!nextToABeeper)
-            {
-            	move();
-            }        
-        }
-    }
     program () {
         // TODO poner codigo aqui
-        putbeeper();
-        move();
-		func();
-        turnleft();
-        turnleft();
-        pickbeeper();
-        turnoff();
+        while(frontIsClear())
+        {
+        	if(nextToABeeper())
+            {
+            	pickbeeper();
+                turnleft();
+            }
+            if(nextToABeeper())
+            {
+            	pickbeeper();
+                turnleft();
+                turnleft();
+            }         
+            if(nextToABeeper())
+            {
+            	pickbeeper();
+                while(notFacingSouth())
+                {
+                	turnleft();
+                }
+                turnoff();
+            }
+            move();
+        }
     }
 }
